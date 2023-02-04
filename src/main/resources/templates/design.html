@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Design Form</title>
+  </head>
+  <body>
+    <div
+      class="d-flex flex-column bd-highlight justify-content-center align-items-center w-75 container-md"
+    >
+      <h1>Design Tekken Reborn Fighter</h1>
+      <form method="post" th:object="${fighter}">
+        <div th:if="${#fields.hasErrors()}">
+          <span>
+            Invalid form information!<br />
+            Please try again
+          </span>
+        </div>
+        <div class="mb-3">
+          <label for="fighterName" class="form-label">Fighter Name: </label>
+          <input
+            type="text"
+            id="fighterName"
+            th:field="*{name}"
+            aria-describedby="fighterHelp"
+          />
+          <div id="fighterHelp">provide decent fighter name</div>
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('name')}"
+            th:errors="*{name}"
+          >
+            name error
+          </span>
+        </div>
+        <div class="mb-3">
+          <label for="damagePerHit" class="form-label">Damage Per Hit: </label>
+          <input type="number" id="damagePerHit" th:field="*{damagePerHit}" />
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('damagePerHit')}"
+            th:errors="*{damagePerHit}"
+          >
+            number error
+          </span>
+        </div>
+        <div class="mb-3">
+          <label for="health" class="form-label">Health: </label>
+          <input type="number" id="health" th:field="*{health}" />
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('health')}"
+            th:errors="*{health}"
+          >
+            name error
+          </span>
+        </div>
+        <div class="mb-3">
+            <label for="resistance" class="form-label">resistance: </label>
+            <input type="number" step="0.1" id="resistance" th:field="*{resistance}" />
+            <span
+              class="validationError"
+              th:if="${#fields.hasErrors('resistance')}"
+              th:errors="*{resistance}"
+            >
+        </div>
+        <select
+          th:field="*{animeForm}"
+          class="form-select mt-5 mb-5"
+          aria-label="Anime selection"
+        >
+          <option
+            th:each="anime: ${animes}"
+            th:value="${anime}"
+            th:text="${anime.title}"
+          />
+        </select>
+        <button class="btn btn-primary mt-5">Add Fighter</button>
+      </form>
+    </div>
+  </body>
+</html>
