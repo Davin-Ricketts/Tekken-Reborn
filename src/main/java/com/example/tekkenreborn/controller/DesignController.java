@@ -2,6 +2,7 @@ package com.example.tekkenreborn.controller;
 
 import java.util.EnumSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import jakarta.validation.Valid;
 import com.example.tekkenreborn.model.Fighter;
 import com.example.tekkenreborn.model.FighterPool;
 import com.example.tekkenreborn.model.Fighter.Anime;
+import com.example.tekkenreborn.repository.impl.JdbcFighterRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +26,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/design")
 @SessionAttributes("fighterPool")
 public class DesignController {
+
+    @Autowired
+    private JdbcFighterRepository fighterRepository;
 
     @GetMapping
     public String design() {
@@ -48,13 +53,14 @@ public class DesignController {
     }
 
     @PostMapping
-    public String processFighterAddition(@Valid Fighter fighter, @ModelAttribute FighterPool pool,
-            BindingResult result) {
+    public String processFighterAddition(@Valid Fighter fighter,BindingResult result) {
         if (result.hasErrors()) {
-            return ("redirect:/design");
+            return "design";
         }
 
-        pool.add(fighter);
+        log.info("Processing fighter: {}", fighter);
+        var id = fighterRepository.save(fighter); 
+        log.info("Saved fighter with id: {}", id);
         return ("redirect:/design");
     }
 

@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
+import java.util.Date;
 
 @Data
 @Builder
@@ -27,7 +28,9 @@ public class Fighter {
     @DecimalMax(value = "10.0", inclusive = true)
     private BigDecimal resistance;
 
-    private Anime animeForm;
+    private Anime animeFrom;
+
+    private final Date createdAt = new Date();
 
     public enum Anime {
         NARUTO("Naruto"), BLEACH("Bleach"), ONE_PIECE("One Piece"), TEKKEN("Tekken");
