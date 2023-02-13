@@ -5,5 +5,5 @@ create table if not exists fighter (
     health int not null,
     resistance numeric not null,
     animeFrom varchar(50) not null,
-    createdAt varchar(50) not null
+    createdAt timestamp not null
 );

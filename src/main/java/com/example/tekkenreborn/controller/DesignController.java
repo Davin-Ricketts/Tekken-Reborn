@@ -61,7 +61,7 @@ public class DesignController {
         log.info("Processing fighter: {}", fighter);
         var id = fighterRepository.save(fighter); 
         log.info("Saved fighter with id: {}", id);
-        return ("redirect:/design");
+        return ("redirect:/fighterlist");
     }
 
 }

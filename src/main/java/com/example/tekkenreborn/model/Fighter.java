@@ -1,6 +1,7 @@
 package com.example.tekkenreborn.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -9,11 +10,27 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
-import java.util.Date;
+
 
 @Data
 @Builder
+@Table
 public class Fighter {
+
+    public enum Anime {
+        NARUTO("Naruto"), BLEACH("Bleach"), ONE_PIECE("One Piece"), TEKKEN("Tekken");
+
+        private String title;
+
+        private Anime(String title) {
+            this.title = title;
+        }
+
+        public String getTitle(){
+            return title;
+        }
+    }
+
     private Long id;
     @NotBlank
     private String name;
@@ -30,20 +47,7 @@ public class Fighter {
 
     private Anime animeFrom;
 
-    private final Date createdAt = new Date();
-
-    public enum Anime {
-        NARUTO("Naruto"), BLEACH("Bleach"), ONE_PIECE("One Piece"), TEKKEN("Tekken");
-
-        private String title;
-
-        private Anime(String title) {
-            this.title = title;
-        }
-
-        public String getTitle(){
-            return title;
-        }
-    }
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }
