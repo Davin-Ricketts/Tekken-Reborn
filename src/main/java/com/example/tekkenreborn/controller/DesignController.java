@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import jakarta.validation.Valid;
 
 import com.example.tekkenreborn.model.Fighter;
-import com.example.tekkenreborn.model.FighterPool;
 import com.example.tekkenreborn.model.Fighter.Anime;
-import com.example.tekkenreborn.repository.impl.JdbcFighterRepository;
+import com.example.tekkenreborn.repository.FighterRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DesignController {
 
     @Autowired
-    private JdbcFighterRepository fighterRepository;
+    private FighterRepository fighterRepository;
 
     @GetMapping
     public String design() {
@@ -40,11 +39,6 @@ public class DesignController {
         var animes = EnumSet.allOf(Anime.class);
         model.addAttribute("animes", animes);
         log.info("animes converted to string: {}", animes);
-    }
-
-    @ModelAttribute(name = "fighterPool")
-    public FighterPool fighterPool() {
-        return new FighterPool();
     }
 
     @ModelAttribute
@@ -59,8 +53,7 @@ public class DesignController {
         }
 
         log.info("Processing fighter: {}", fighter);
-        var id = fighterRepository.save(fighter); 
-        log.info("Saved fighter with id: {}", id);
+        fighterRepository.save(fighter); 
         return ("redirect:/fighterlist");
     }
 

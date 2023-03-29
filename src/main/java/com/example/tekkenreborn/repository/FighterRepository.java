@@ -1,13 +1,16 @@
 package com.example.tekkenreborn.repository;
 
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
 import com.example.tekkenreborn.model.Fighter;
+import com.example.tekkenreborn.model.Fighter.Anime;
 
-public interface FighterRepository {
-    Iterable<Fighter> findAll();
 
-    Optional<Fighter> findById(Long id);
-    Fighter save(Fighter fighter);
+public interface FighterRepository extends CrudRepository<Fighter, Long> {
+    List<Fighter> findByAnimeFrom(Anime anime);
 
-    void save(Fighter fighter);
+    List<Fighter> findByNameStartsWithAndCreatedAtBetween(String name, LocalDate startDate, LocalDate endDate);
 }
