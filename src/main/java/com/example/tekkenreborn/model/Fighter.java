@@ -42,7 +42,7 @@ public class Fighter {
     private Anime animeFrom;
 
     @Builder.Default
-    private LocalDate createdAt = LocalDateTime.now();
+    private LocalDate createdAt = LocalDate.now();
 
     public enum Anime {
         NARUTO("Naruto"), BLEACH("Bleach"), ONE_PIECE("One Piece"), TEKKEN("Tekken");
