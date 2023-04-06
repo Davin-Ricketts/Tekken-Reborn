@@ -38,7 +38,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
+        http
         .authorizeHttpRequests()
         .requestMatchers(toH2Console()).permitAll()
         .requestMatchers("/design", "/fighterlist")
@@ -55,16 +55,11 @@ public class SecurityConfig {
         .logoutSuccessUrl("/")
 
         .and()
-        .csrf()
-        .ignoringRequestMatchers(toH2Console())
-
-        .and()
         .headers()
-        .frameOptions()
-        .sameOrigin()
-
-        .and()
-        .build();
+        .frameOptions();
+        
+        http.csrf().disable();
+        return http.build();
 
     }
 }
