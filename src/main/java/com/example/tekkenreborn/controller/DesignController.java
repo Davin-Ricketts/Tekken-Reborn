@@ -4,6 +4,8 @@ import java.util.EnumSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import jakarta.validation.Valid;
 
 import com.example.tekkenreborn.model.Fighter;
 import com.example.tekkenreborn.model.Fighter.Anime;
+import com.example.tekkenreborn.model.User;
 import com.example.tekkenreborn.repository.FighterRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +58,14 @@ public class DesignController {
         log.info("Processing fighter: {}", fighter);
         fighterRepository.save(fighter); 
         return ("redirect:/fighterlist");
+    }
+
+    @PostMapping("/deleteAllFighters")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String processFightersDeletion(@AuthenticationPrincipal User user) {
+        log.info("Deleting all fighters for user: {}", user.getAuthorities());
+        fighterRepository.deleteAll();
+        return "redirect:/design";
     }
 
 }

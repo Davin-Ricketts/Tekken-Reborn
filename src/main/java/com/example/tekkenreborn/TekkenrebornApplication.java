@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import com.example.tekkenreborn.controller.HomeController;
 import com.example.tekkenreborn.model.Fighter;
 import com.example.tekkenreborn.model.Fighter.Anime;
 import com.example.tekkenreborn.repository.FighterRepository;
